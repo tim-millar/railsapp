@@ -29,4 +29,5 @@ RUN bundle install
 
 COPY . /usr/src/app/
 
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]
