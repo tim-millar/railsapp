@@ -9,6 +9,8 @@ services:
     env_file:
       - .env/production/database
       - .env/production/web
+    deploy:
+      replicas: 2
 
   redis:
     image: redis
@@ -30,6 +32,16 @@ services:
     deploy:
       restart_policy:
         condition: none
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
 volumes:
   db_data:
